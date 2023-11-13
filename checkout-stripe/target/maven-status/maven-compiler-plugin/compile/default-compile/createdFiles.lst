@@ -1,0 +1,3 @@
+tn\sae\checkoutstripe\CheckoutStripeApplication.class
+tn\sae\checkoutstripe\entity\checkoutPayment.class
+tn\sae\checkoutstripe\controller\stripeController.class

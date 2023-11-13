@@ -1,0 +1,91 @@
+version: '3'
+
+services:
+  mysql:
+    container_name: mysql
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: CulTechConnect
+    volumes:
+      - mysql_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+
+  config-server:
+    container_name: config-server
+    image: config-server
+    build:
+      context: ./config-server
+    ports:
+      - "8888:8888"
+  partnership:
+    container_name: partnership
+    image: partnership
+    build:
+      context: ./partnership
+    ports:
+      - "8082:8082"
+    depends_on:
+      - mysql
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/CulTechConnect
+      SPRING_DATASOURCE_USERNAME: root
+  checkout-stripe:
+    container_name: checkout-stripe
+    image: checkout-stripe
+    build:
+      context: ./checkout-stripe
+    ports:
+      - "8777:8777"
+
+  events:
+    container_name: events
+    image: events
+    build:
+      context: ./events
+    ports:
+      - "8083:8083"
+    depends_on:
+      - mysql
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/CulTechConnect
+      SPRING_DATASOURCE_USERNAME: root
+  blog:
+    container_name: blog
+    image: events
+    build:
+      context: ./blog
+    ports:
+      - "8087:8087"
+    depends_on:
+      - mysql
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/CulTechConnect
+      SPRING_DATASOURCE_USERNAME: root
+  Chat:
+    container_name: Chat
+    image: chat
+    build:
+      context: ./Chat
+    ports:
+      - "8084:8084"
+    depends_on:
+      - mysql
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/CulTechConnect
+      SPRING_DATASOURCE_USERNAME: root
+
+
+
+    networks:
+      - mysql_network
+    restart: unless-stopped
+
+networks:
+  mysql_network:
+    driver: bridge
+
+volumes:
+  mysql_data:
+    driver: local

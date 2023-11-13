@@ -1,0 +1,7 @@
+tn\sae\partnership\PartnershipApplication.class
+tn\sae\partnership\service\PartnershipService.class
+tn\sae\partnership\controller\PartnershipController.class
+tn\sae\partnership\entity\Partnership.class
+tn\sae\partnership\service\IpartnershipService.class
+tn\sae\partnership\repository\PartnershipRepository.class
+tn\sae\partnership\entity\Partnership$PartnershipBuilder.class

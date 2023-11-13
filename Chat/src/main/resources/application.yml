@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: Chat
+  config:
+    import: optional:configserver:http://localhost:8888
